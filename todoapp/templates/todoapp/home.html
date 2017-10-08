@@ -1,0 +1,62 @@
+{% extends 'todoapp/base.html' %}
+
+{% block head %}
+<title>Todo List</title>
+{% endblock %}
+
+{% block body %}
+<script>
+    var flag = {{ status }}
+</script>
+<div class="jumbotron">
+    <form class="form-horizontal" method="POST" action="submit">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <div class="col-sm-10">
+                {{ field }}
+            </div>
+        </div>
+        {% endfor %}
+        <center>
+            <button class="btn btn-default" type="submit">ADD</button>
+        </center>
+    </form>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="jumbotron">
+            {% for item in lists %}
+            <div class="row">
+                <div class="col-sm-1">
+                    <center>
+                        {{ forloop.counter }} 
+                    </center>
+                </div>
+                <div class="col-sm-2">
+                    <center>
+                        {{ item.name }}
+                    </center>
+                </div>
+                <div class="col-sm-6">
+                    <center>
+                        {{ item.description }}
+                    </center>
+                </div>
+                <div class="col-sm-2">
+                    <center>
+                        {{ item.createdDate }}
+                    </center>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script>
+    if(flag==1){
+        alert('Form was invalid, try again');
+    }
+</script>
+{% endblock %}

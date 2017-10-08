@@ -1,0 +1,32 @@
+{% extends 'userAuth/base.html' %}
+
+{% block head %}
+<title>Sign Up</title>
+{% endblock %}
+
+{% block body %}
+<script>
+    var flag = {{ status }}
+</script>
+<div class="jumbotron">
+    <form class="form-horizontal" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <div class="col-sm-10">
+                {{ field }}
+            </div>
+        </div>
+        {% endfor %}
+        <center>
+            <button class="btn btn-default" type="submit">Login</button>
+        </center>
+    </form>
+</div>
+<script>
+    if(flag==1){
+        alert('Form was invalid, try again');
+    }
+</script>
+{% endblock %}
