@@ -1,17 +1,16 @@
-{% extends 'todoapp/base.html' %}
-
-{% block head %}
+{% extends 'todoapp/base.html' %} {% block head %}
 <title>Todo List</title>
-{% endblock %}
-
-{% block body %}
+{% endblock %} {% block body %}
 <script>
-    var flag = {{ status }}
+    var flag = {
+        {
+            status
+        }
+    }
 </script>
 <div class="jumbotron">
     <form class="form-horizontal" method="POST" action="submit">
-        {% csrf_token %}
-        {% for field in form %}
+        {% csrf_token %} {% for field in form %}
         <div class="form-group">
             <label class="control-label col-sm-2" for="{{ field.id_for_label }}">{{ field.label }}</label>
             <div class="col-sm-10">
@@ -21,6 +20,7 @@
         {% endfor %}
         <center>
             <button class="btn btn-default" type="submit">ADD</button>
+            <button class="btn btn-default" type="button" onclick="window.location.href='/logout'">Log Out</button>
         </center>
     </form>
 </div>
@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-sm-1">
                     <center>
-                        {{ forloop.counter }} 
+                        {{ forloop.counter }}
                     </center>
                 </div>
                 <div class="col-sm-2">
@@ -55,7 +55,7 @@
     </div>
 </div>
 <script>
-    if(flag==1){
+    if (flag == 1) {
         alert('Form was invalid, try again');
     }
 </script>

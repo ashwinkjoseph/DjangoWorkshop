@@ -3,11 +3,19 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from .forms import todoItem
 from .models import TodoList
+from django.contrib.auth import logout
 
 # Create your views here.
 def home(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('login_page')
     try:
         user = User.objects.get(pk=pk)
+        print(type(user))
+        print(type(request.user))
+        if str(request.user) not in str(user):
+            logout(request)
+            return redirect('login_page')
         try:
             lists = TodoList.objects.filter(user=user)
             form = todoItem()
@@ -25,6 +33,8 @@ def home(request, pk):
         return redirect('login_page')
 
 def submit(request):
+    if not request.user.is_authenticated:
+        return redirect('login_page')
     if request.method == "POST":
         form_contents = todoItem(request.POST)
         userid = request.user.id

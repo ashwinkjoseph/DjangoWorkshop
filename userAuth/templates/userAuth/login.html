@@ -1,17 +1,16 @@
-{% extends 'userAuth/base.html' %}
-
-{% block head %}
+{% extends 'userAuth/base.html' %} {% block head %}
 <title>Login</title>
-{% endblock %}
-
-{% block body %}
+{% endblock %} {% block body %}
 <script>
-    var flag = {{ status }}
+    var flag = {
+        {
+            status
+        }
+    }
 </script>
 <div class="jumbotron">
     <form class="form-horizontal" method="POST">
-        {% csrf_token %}
-        {% for field in form %}
+        {% csrf_token %} {% for field in form %}
         <div class="form-group">
             <label class="control-label col-sm-2" for="{{ field.id_for_label }}">{{ field.label }}</label>
             <div class="col-sm-10">
@@ -21,14 +20,15 @@
         {% endfor %}
         <center>
             <button class="btn btn-default" type="submit">Login</button>
+            <button class="btn btn-default" type="button" onclick="window.location.href='/signup'">Signup</button>
         </center>
     </form>
 </div>
 <script>
-    if(flag==1){
+    if (flag == 1) {
         alert('Password and email dont match');
     }
-    if(flag==2){
+    if (flag == 2) {
         alert('User Does Not Exist');
     }
 </script>

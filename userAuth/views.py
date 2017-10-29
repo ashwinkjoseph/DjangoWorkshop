@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from .forms import LoginForm, SignUpForm
 # from .models import User
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 
 # Create your views here.
@@ -22,7 +22,7 @@ def logins(request):
                     login(request, user)
                     return redirect('home_page', user.pk)
             else:
-                print('here')
+                return redirect('login_page')
         else:
             print('im here')
             print(form.errors)
@@ -55,3 +55,7 @@ def signup(request):
             'form': form,
             'status': 0
         })
+
+def logouts(request):
+    logout(request)
+    return redirect('login_page')
